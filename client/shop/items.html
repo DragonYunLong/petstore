@@ -1,0 +1,98 @@
+<html>
+<head>
+	<TITLE></TITLE>
+	<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+</head>
+<body>
+<div id = "top"></div>
+<table align="left" bgcolor="#008800" border="0" cellspacing="2"
+	   cellpadding="2">
+	<tr>
+		<td bgcolor="#FFFF88">
+			<a href="main.html"><b><font color="BLACK" size="2">&lt;&lt; 主菜单</font>
+			</b></a>
+		</td>
+	</tr>
+</table>
+
+<p>
+
+	<center>
+		<h2>
+		</h2>
+	</center>
+
+	<table align="center" bgcolor="#008800" border="0" id = "mytable"
+		   cellspacing="2" cellpadding="3">
+		<thead>
+			<tr bgcolor="#CCCCCC">
+				<td>
+					项目编号
+				</td>
+				<td>
+					产品编号
+				</td>
+				<td>
+					产品名称
+				</td>
+				<td>
+					单价
+				</td>
+				<td>
+					图片
+				</td>
+				<td>
+					描述
+				</td>
+				<td>
+					&nbsp;
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<!--<tr bgcolor="#FFFF88">
+				<td>
+					<a href="item.html"><img border="0"
+							src="../images/button_add_to_cart.gif" />
+					</a>
+				</td>-->
+			</tr>
+		</tbody>
+		<script>
+			var productid = location.search.split("=")[1];
+			$.ajax({
+				url:"http://localhost:8081/pet/queryItems/"+productid,
+				dataType:"text json",
+				type:"get",
+				statusCode:{
+				    200:function (data) {
+				        $("#mytable>tbody").empty();
+				        var str = ""
+						$(data).each(function (index,value) {
+							str+="<tr bgcolor=\"#FFFF88\">" +
+                                "<td>"+value.itemno+"</td>" +
+                                "<td>"+value.product.productno+"</td>" +
+                                "<td>"+value.product.name+"</td>" +
+                                "<td>"+value.listprice+"</td>" +
+                                "<td>"+value.attr1+"</td>" +
+								"<td><img  src = ../images/"+value.product.pic+"></td>" +
+								"<td>" +
+                                "<a href='item.html?productid="+value.product.productid+"&itemid="+value.itemid+"'><img border=\"0\"src=\"../images/button_add_to_cart.gif\" />\n" +
+                                "</a>" +
+                                "</td>" +
+                                "</tr>"
+                        })
+						$("#mytable>tbody").append(str);
+
+                    }
+				}
+			})
+		</script>
+		
+
+	</table>
+
+</body>
+</html>

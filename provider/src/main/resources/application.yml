@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    name: test
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.10.129:3306/pets?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+  dubbo:
+    application:
+      name: business-provider
+    registry:
+      protocol: zookeeper
+      address: 192.168.10.129:2181
+    protocol:
+      name: dubbo
+      port: 20880
+      host: localhost
+    scan: com.yunlong.provider
+  redis:
+    host: 192.168.10.129
+    port: 6379
+    testOnBorrow: true
+    database: 1

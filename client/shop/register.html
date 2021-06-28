@@ -1,0 +1,207 @@
+<html>
+<head>
+	<TITLE></TITLE>
+	<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/tojson.js"></script>
+</head>
+<body>
+<style>
+	.error{
+		color:red;
+		visibility: visible;
+	}
+	.info{
+		visibility: hidden;
+	}
+
+</style>
+<div id = "top"></div>
+
+<form id="form1">
+
+	<TABLE cellpadding=10 cellspacing=0 align=center border=1 width="450"
+		   bgcolor=#dddddd id = "mytable">
+		<TR>
+			<TD>
+				<FONT color=darkgreen>
+					<H3>
+						基本信息
+					</H3>
+				</FONT>
+				<TABLE border=0  bgcolor=#FFFF88  width="100%">
+					<TR bgcolor=#FFFF88>
+						<TD>
+							用户名：<input type="text" name="username" id="username" />
+							<span class="info" id="umsg">请输入用户名！</span>
+
+						</TD>
+					</TR>
+					<TR bgcolor=#FFFF88>
+
+						<TD>
+
+							密&nbsp;&nbsp;&nbsp;码：<input type="text" name="password" id="password" />
+							<span class="info" id="pmsg">请输入密码！</span>
+						</TD>
+					</TR>
+					<TR bgcolor=#FFFF88>
+
+						<TD>
+							确认密码：<input type="text" name="repassword" id="repassword" size="18" />
+							<span class="info" id="rmsg">密码必须一致！</span>
+						</TD>
+					</TR>
+				</TABLE>
+
+
+
+
+
+				<FONT color=darkgreen><H3>
+					附加信息
+				</H3>
+				</FONT>
+
+				<TABLE bgcolor="#FFFF88" border=0
+					   bgcolor=#FFFF88 width="100%">
+					<TR bgcolor=#FFFF88>
+
+						<TD>
+							邮箱：<input type="text" name="email" id="email" />
+							<span class="info" id="emsg">邮箱为空或不符合！</span>
+						</TD>
+					</TR>
+
+					<TR bgcolor=#FFFF88>
+
+						<TD>
+							姓名：<input type="text" name="name" id="name" />
+							<span class="info" id="xmsg">姓名不能为空！</span>
+						</TD>
+					</TR>
+
+					<TR bgcolor=#FFFF88>
+
+						<TD>
+							地址：<input type="text" name="address" id="address" />
+
+						</TD>
+					</TR>
+
+
+				</TABLE>
+
+
+				<FONT color=darkgreen><H3>
+					爱好信息
+				</H3>
+				</FONT>
+
+				<TABLE bgcolor="#FFFF88" border=0 cellpadding=3 cellspacing=1 width="100%">
+					<TR bgcolor=#FFFF88>
+
+						<TD>
+							语种：<select id="lan" name="profile.lang">
+							<option value="eng">英语</option>
+							<option value="chi">汉语</option>
+
+						</select>
+						</TD>
+					</TR>
+					<TR bgcolor=#FFFF88>
+						<TD>
+							宠物：<select id="cat" name="profile.catid"></select>
+						</TD>
+					</TR>
+					<script>
+                        $.ajax({
+                            url:"http://localhost:8081/pet/queryAll",
+                            dataType:"text json",
+                            type:"get",
+                            statusCode:{
+                                200:function(data){
+                                    $("#cat").empty();
+                                    var str;
+                                    $(data).each(function (index,val) {
+                                        str+="<option value='"+val.catid+"'>"+val.name+"</option>"
+                                    })
+                                    $("#cat").append(str);
+                                }
+
+                            }
+                        })
+					</script>
+				</TABLE>
+	</TABLE>
+
+</form>
+
+	<BR>
+	<CENTER>
+		<input border=0 type="image" id = "mysubmit" src="../images/button_submit.gif" />
+		<script>
+
+			$("#mysubmit").click(function () {
+			    var username = $("#username").val();
+                var password = $("#password").val();
+                var repassword = $("#repassword").val();
+                var email = $("#email").val();
+				if(username == ""||username.length == 0){
+                    $("#umsg").attr("class","error");
+                    return;
+                }else {
+                    $("#umsg").attr("class","info");
+                }
+                if(password == ""||password.length == 0){
+                    $("#pmsg").attr("class","error");
+                    return;
+                }else {
+                    $("#pmsg").attr("class","info");
+                }
+                if(repassword == ""||repassword.length == 0){
+                    $("#rmsg").val("二次密码不能为空");
+                    $("#rmsg").attr("class","error");
+                    return;
+                }else {
+                    $("#rmsg").attr("class","info");
+                }
+                if(repassword != password){
+                    $("#rmsg").attr("class","error");
+                    return;
+				}else{
+                    $("#rmsg").attr("class","info");
+				}
+                var check = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+                if(!check.test(email)||email == ""||email.length == 0){
+                    $("#emsg").attr("class","error");
+                    return;
+				}else {
+                    $("#emsg").attr("class","info");
+				}
+
+                $.ajax({
+                    url:"http://localhost:8081/account/register",
+                    data:JSON.stringify($("#form1").serializeObject()),
+                    contentType:"application/json",
+                    type:"post",
+                    statusCode:{
+                        200:function () {
+                            alert("注册成功");
+                            window.location="register.html"
+                        },
+                        500:function () {
+                            alert("用户名已存在");
+                            //$("#umsg").attr("class","error");
+
+                        }
+                    }
+                })
+            });
+
+		</script>
+	</CENTER>
+
+</body>
+</html>

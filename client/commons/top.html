@@ -1,0 +1,86 @@
+
+   	<TABLE background="../images/bkg-topbar.gif" border=0 cellSpacing=0
+			cellPadding=5 width="100%">
+			<TBODY>
+				<TR>
+					<TD>
+						<A href=""><IMG border=0
+								src="../images/logo-topbar.gif">
+						</A>
+					</TD>
+					<TD align=right >
+						<A href="../shop/cart.html"><IMG border=0 name=img_cart
+								src="../images/cart.gif">
+						</A>
+						<img border="0" src="../images/separator.gif" />
+						<A href="../shop/init.html">
+							<IMG border=0 src="../images/init.gif">
+						</A>
+						<img border="0" src="../images/separator.gif" />
+						<A href="../shop/login.html">
+							<IMG border=0 src="../images/sign-in.gif">
+						</A>
+						<img border="0" src="../images/separator.gif" />
+						<A href="../shop/register.html">
+							<IMG border=0 src="../images/reg.gif">
+						</A>
+						<img border="0" src="../images/separator.gif" />
+						<A href="../shop/main.html">
+							<IMG border=0 src="../images/sign-out.gif" onclick="out()">
+						</A>
+						<script>
+							function out() {
+								var sessionid = getCookie("sessionid");
+								$.ajax({
+									url:"http://localhost:8081/account/out/"+sessionid,
+									type:"post",
+									dataType:"text",
+									statusCode:{
+									    200:function (data) {
+									        window.location="main.html"
+											document.cookie = "sessionid = ";
+                                        }
+									}
+								})
+                            }
+							function getCookie(cname)
+							{
+								var name = cname + "=";
+								var ca = document.cookie.split(';');
+								for(var i=0; i<ca.length; i++)
+								{
+									var c = ca[i].trim();
+									if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+								}
+								return "";
+							}
+						</script>
+
+						
+					</TD>
+
+					
+				</TR>
+			</TBODY>
+		</TABLE>
+		<center>
+			<a href="../shop/product.html?cate=4"><img
+					border="0" src="../images/sm_fish.gif" />
+			</a>
+			<img border="0" src="../images/separator.gif" />
+			<a href="../shop/product.html?cate=3"><img
+					border="0" src="../images/sm_dogs.gif" />
+			</a>
+			<img border="0" src="../images/separator.gif" />
+			<a href="../shop/product.html?cate=5"><img
+					border="0" src="../images/sm_reptiles.gif" />
+			</a>
+			<img border="0" src="../images/separator.gif" />
+			<a href="../shop/product.html?cate=2"><img
+					border="0" src="../images/sm_cats.gif" />
+			</a>
+			<img border="0" src="../images/separator.gif" />
+			<a href="../shop/product.html?cate=1"><img
+					border="0" src="../images/sm_birds.gif" />
+			</a>
+		</center>

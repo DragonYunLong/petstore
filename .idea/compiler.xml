@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="com.yunlong.api" target="1.8" />
+      <module name="com.yunlong.api.main" target="1.8" />
+      <module name="com.yunlong.api.test" target="1.8" />
+      <module name="com.yunlong.consumer" target="1.8" />
+      <module name="com.yunlong.consumer.main" target="1.8" />
+      <module name="com.yunlong.consumer.test" target="1.8" />
+      <module name="provider" target="1.8" />
+      <module name="provider.main" target="1.8" />
+      <module name="provider.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-encoding utf-8" />
+  </component>
+</project>

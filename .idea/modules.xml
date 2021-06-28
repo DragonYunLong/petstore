@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/A9.iml" filepath="$PROJECT_DIR$/A9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/client/client.iml" filepath="$PROJECT_DIR$/client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.yunlong.api.iml" filepath="$PROJECT_DIR$/.idea/modules/com.yunlong.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.yunlong.api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.yunlong.api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.yunlong.api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.yunlong.api.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.yunlong.consumer.iml" filepath="$PROJECT_DIR$/.idea/modules/com.yunlong.consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.yunlong.consumer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.yunlong.consumer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.yunlong.consumer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.yunlong.consumer.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider.iml" filepath="$PROJECT_DIR$/.idea/modules/provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider.main.iml" filepath="$PROJECT_DIR$/.idea/modules/provider.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/provider.test.iml" filepath="$PROJECT_DIR$/.idea/modules/provider.test.iml" />
+    </modules>
+  </component>
+</project>

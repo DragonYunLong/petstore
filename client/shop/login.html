@@ -1,0 +1,101 @@
+<html>
+<head>
+	<TITLE></TITLE>
+	<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script>
+		$(function () {
+			function secrit(username){
+				var sc = "";
+				for(i = 0;i<username.length;i++){
+
+					sc += String.fromCharCode(username.toString().charCodeAt(i)+i);
+					sc += String.fromCharCode(username.toString().charCodeAt(i)-i);
+				}
+				return sc;
+
+			}
+			$("#mysubmit").click(function () {
+			    var username = $("#username").val();
+			    var password = $("#password").val();
+			    if(username == ""||password == ""){
+			        alert("用户名密码不能为空");
+			        return;
+				}
+			    var account = {
+			        username:username,
+					password:password
+				};
+				var sessionid = secrit(account.username);
+						/*account.username+account.password;*/
+				var date = new Date();
+				date.setTime(date.getTime()+30*60*1000);
+				$.ajax({
+					url:"http://localhost:8081/account/login/"+sessionid,
+					data:JSON.stringify(account),
+					type:"post",
+					contentType:"application/json",
+					statusCode:{
+					    200:function () {
+							window.location="main.html"
+							document.cookie = "sessionid = "+ sessionid+"; expires = "+date.toUTCString();
+                        },
+                        404:function () {
+							alert("用户名或密码错误")
+							window.location="login.html"
+                        }
+					}
+				})
+            })
+        })
+	</script>
+</head>
+
+<body>
+<div id="top"></div>
+<table align="left" bgcolor="#008800" border="0" cellspacing="2"
+	   cellpadding="2">
+	<tr>
+		<td bgcolor="#FFFF88">
+			<a href="main.html"><b><font color="BLACK" size="2">&lt;&lt; 主菜单</font>
+			</b></a>
+		</td>
+	</tr>
+</table>
+	<table align="center" border="0">
+		<tr>
+
+		</tr>
+		<tr>
+			
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td>
+				用户名：<input type="text" id="username" name="username"/><br>
+				密码：<input type="password" id="password" name="password"/><br>
+				<input type="image" id="mysubmit" border="0" src="../images/button_submit.gif" />
+				<a href="register.html"><img border="0" src="../images/button_register_now.gif" />
+				</a>
+
+			</td>
+		</tr>
+	</table>
+
+<center>
+
+</center>
+</body>
+</html>

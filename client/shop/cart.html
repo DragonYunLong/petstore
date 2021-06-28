@@ -1,0 +1,169 @@
+<html>
+<head>
+	<TITLE></TITLE>
+	<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+
+	<script>
+		$(function () {
+            $.ajax({
+                url:"http://localhost:8081/account/welcome",
+                dataType:"text",
+                type:"get",
+                statusCode:{
+                    200:function (data) {
+						if(data == "未登录"){
+						    window.location="login.html";
+						}else{
+						    $("#userid").val(data.split(":")[1]);
+							show();
+						}
+
+                    },
+					500:function () {
+
+                    }
+                }
+            });
+        });
+
+        function show(){
+            $.ajax({
+                url:"http://localhost:8081/cart/getCart/"+$("#userid").val(),
+                type:"get",
+                dataType:"text json",
+                statusCode:{
+                    200:function (data) {
+                        $("#mytable>tbody").empty();
+                        var str = "";
+                        var total = 0;
+                        $(data).each(function (index,value) {
+                            str+="<tr bgcolor='#ffebcd'>" +
+                                "<td>"+value.item.product.productno+"</td>" +
+                                "<td>"+value.item.itemno+"</td>" +
+                                "<td>"+value.item.attr1+"</td>" +
+                                "<td>"+value.item.product.descn+"</td>" +
+                                "<td><image src='../images/"+value.item.product.pic+"'></image></td>" +
+                                "<td>"+value.item.listprice+"</td>" +
+                                "<td>"+value.quantity+"</td>" +
+                                "<td>"+value.item.listprice*value.quantity+"</td>" +
+                                "<td><image src='../images/button_remove.gif'  onclick='del("+value.userid+","+value.orderid+","+value.itemid+")' ></image></td>" +
+                                "</tr>";
+							total+=value.item.listprice*value.quantity;
+                        });
+                        $("#total").val(total);
+                        $("#mytable>tbody").append(str);
+                    }
+                }
+            });
+        }
+        function del(userid,orderid,itemid) {
+            $.ajax({
+                url:"http://localhost:8081/cart/del/"+userid+"/"+orderid+"/"+itemid,
+                type:"delete",
+                dataType:"text",
+                statusCode:{
+                    200:function () {
+                        show()
+                    }
+                }
+            });
+        }
+
+	</script>
+</head>
+<body>
+<div id = "top"></div>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<input type="hidden" id="userid"/>
+	<tr>
+		<td valign="top" width="5%" align="left">
+			<table align="left" bgcolor="#008800" border="0" cellspacing="2"
+				cellpadding="2">
+				<tr>
+					<td bgcolor="#FFFF88">
+						<a href="main.html"><b><font color="BLACK" size="2">&lt;&lt; 主菜单</font>
+				</b></a>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td valign="top" align="center">
+			<h2 align="center">
+				
+			</h2>
+				<table align="center" bgcolor="#008800" border="0" cellspacing="2" id="mytable"
+					cellpadding="5" >
+					<thead>
+						<tr bgcolor="#cccccc">
+
+							<td>
+								项目编号
+							</td>
+							<td>
+								产品编号
+							</td>
+							<td>
+								产品描述
+							</td>
+							<td>
+								项目描述
+							</td>
+							<td>
+								图片
+							</td>
+							<td>
+								单价
+							</td>
+							<td>
+								数量
+							</td>
+							<td>
+								合计
+							</td>
+							<td>
+								&nbsp;
+								<input type="hidden" id = "total" name="totalprice">
+							</td>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<center>
+
+
+				</center>
+			<br />
+			<center>
+				<img border="0" src="../images/button_checkout.gif" onclick="checkout()" />
+				<script>
+					function checkout() {
+
+						var userid = $("#userid").val();
+						var totalprice = $("#total").val();
+						$.ajax({
+							url:"http://localhost:8081/cart/check/"+userid+"/"+totalprice,
+							dataType:"text",
+							type:"post",
+							statusCode:{
+							    200:function () {
+									show();
+                                }
+							}
+						})
+                    }
+				</script>
+			</center>
+
+
+		</td>
+
+
+
+
+	</tr>
+</table>
+<br>
+</body>
+</html>

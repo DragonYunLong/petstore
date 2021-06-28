@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url:"http://localhost:8081/account/welcome",
+                dataType:"text",
+                type:"get",
+                statusCode:{
+                    200:function (data) {
+                        if(data == "未登录"){
+                            window.location="login.html";
+                        }else{
+                            $("#userid").val(data.split(":")[1]);
+                            add();
+                        }
+
+                    },
+                    500:function () {
+
+                    }
+                }
+            });
+
+        });
+        function add() {
+            var string = location.search;
+            var num = string.split("?")[1].split("=")[1];
+            var itemid = string.split("?")[2].split("=")[1];
+            var productid = string.split("?")[3].split("=")[1];
+            var userid = $("#userid").val();
+            $.ajax({
+                url:"http://localhost:8081/cart/addCart/"+userid+"/"+itemid+"/"+productid+"/"+num,
+                dataType:"text",
+                type:"put",
+                statusCode:{
+                    200:function () {
+                        window.location="cart.html"
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<input type="hidden" id = "userid",name = "userid">
+
+</body>
+</html>

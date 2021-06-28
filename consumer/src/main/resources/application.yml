@@ -1,0 +1,14 @@
+spring:
+  dubbo:
+    application:
+      name: business-consumer
+    registry:
+      protocol: zookeeper
+      address: 192.168.10.129:2181
+    protocol:
+      name: dubbo
+      port: 20880
+      host: localhost
+    scan: com.yunlong.consumer
+server:
+  port: 8081

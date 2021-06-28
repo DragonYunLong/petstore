@@ -1,0 +1,64 @@
+<html>
+<head>
+	<TITLE></TITLE>
+	<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script>
+		var productid = location.search.split("=")[1].split("&")[0]
+		var itemid = location.search.split("=")[2]
+		$.ajax({
+			url:"http://localhost:8081/pet/queryItem/"+productid+"/"+itemid,
+			type:"get",
+			dataType:"text json",
+			statusCode:{
+			    200:function (data) {
+                    $(data).each(function (index,value) {
+                        $("#itemno").html(value.itemno);
+                        $("#pic").attr("src","../images/"+value.product.pic);
+                        $("#name").html(value.product.name);
+                        $("#listprice").html(value.listprice);
+                        $("#descn").html(value.product.descn);
+                        $("#productno").html(value.product.productno);
+                        $("#itemid").val(value.itemid);
+                        $("#productid").val(value.product.productid);
+                    });
+                }
+			}
+		})
+	</script>
+</head>
+<body>
+<div id = "top"></div>
+<table align="left" bgcolor="#008800" border="0" cellspacing="2"
+       cellpadding="2">
+    <tr>
+        <td bgcolor="#FFFF88">
+            <a href="main.html"><b><font color="BLACK" size="2">&lt;&lt; 主菜单</font>
+            </b></a>
+        </td>
+    </tr>
+</table>
+
+<table align="center" bgcolor="#008800" cellspacing="2" cellpadding="3" id = "mytable"
+		border="0" width="60%">
+	<tbody>
+        <tr bgcolor="#FFFF88"><td><input type='hidden' id='itemid'></td></tr>
+        <tr bgcolor="#FFFF88"><td><input type='hidden' id='productid'></td></tr>
+        <tr bgcolor="#FFFF88"><td><span id="itemno"></span> </td></tr>
+        <tr bgcolor="#a9a9a9"><td><image id = "pic"></image></td></tr>
+        <tr bgcolor="#FFFF88"><td><span id="name"></span></td></tr>
+        <tr bgcolor="#FFFF88"><td><span id = "listprice"></span></td></tr>
+        <tr bgcolor="#FFFF88"><td><span id="descn"></span></td></tr>
+        <tr bgcolor="#FFFF88"><td><span id="productno"></span></td></tr>
+        <tr bgcolor="#FFFF88"><td><input type='text' id='num'></td></tr>
+        <tr bgcolor="#FFFF88"><td><input type="image" onclick="add()" src='../images/button_add_to_cart.gif'></td></tr>
+	</tbody>
+    <script>
+        function add() {
+            window.location="add.html?num="+$("#num").val()+"?itemid="+$("#itemid").val()+"?productid="+$("#productid").val();
+        }
+    </script>
+</table>
+</body>
+</html>

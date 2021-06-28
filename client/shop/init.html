@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script>
+        function init() {
+            $.ajax({
+                url:"http://localhost:8081/init/init",
+                dataType: "text",
+                type: "post",
+                statusCode:{
+                    200:function (data) {
+                        alert(data)
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+
+
+<div id="top"></div>
+
+<table border="0" width="90%" cellspacing="0" cellpadding="0">
+    <tr>
+        <td valign="top" width="10%" align="left">
+            <table align="left" bgcolor="#008800" border="0" cellspacing="2"
+                   cellpadding="2">
+                <tr>
+                    <td bgcolor="#FFFF88">
+                        <a href="main.html"><b><font color="BLACK" size="2">&lt;&lt; 主菜单 </font>
+                        </b></a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td valign="top" align="center">
+            <h2 align="center">
+                初始化数据<br/>
+                <button onclick="init()">初始化数据</button>
+            </h2>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
